@@ -245,24 +245,7 @@ function createCode(){
     checkCode.value = code;//把code值赋给验证码
 }
 
-//校验验证码
-function validate(){
-    var inputCode = document.getElementById("input").value.toUpperCase(); //取得输入的验证码并转化为大写
-    if(inputCode.length <= 0) { //若输入的验证码长度为0
-        $("#check").addClass("layui-btn-disabled");
-        // document.getElementById("check").disabled=true;
-        alert("请输入验证码！"); //则弹出请输入验证码
-    }else if(inputCode!= code.value.toUpperCase() ) { //忽略大小写
-        // document.getElementById("check").disabled=true;
-        $("#check").addClass("layui-btn-disabled");
-        alert("验证码输入错误!!!请重新输入"); //则弹出验证码输入错误
-        createCode();//刷新验证码
-        document.getElementById("input").value = "";//清空文本框
-    }else { //输入正确时
-        // document.getElementById("check").disabled=false;
-        alert("输入正确,完成注册！");
-    }
-}
+
 
 <!-- 路由旧 ID，解决 seajs.use('select/x.x.x/select') 的历史遗留问题 -->
 (function(){
@@ -664,3 +647,8 @@ $(".a-upload").on("change","input[type='file']",function(){
         return false
     }
 })
+
+
+
+
+

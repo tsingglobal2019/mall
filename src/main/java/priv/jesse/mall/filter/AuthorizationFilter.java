@@ -61,6 +61,8 @@ public class AuthorizationFilter implements Filter {
                     || path.endsWith("logout.do")
                     || path.endsWith("error.html")
                     || path.endsWith("checkUsername.do")
+                    || path.endsWith("sendValidateCode.do")
+                    || path.endsWith("checkValidateCode.do")
                     || path.indexOf("/mall/admin/product/img/") != -1
                     || path.endsWith("index.html")
                     || path.endsWith("classification/list.do")

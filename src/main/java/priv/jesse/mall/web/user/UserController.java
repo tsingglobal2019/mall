@@ -71,19 +71,19 @@ public class UserController {
                          String name,
                          String phone,
                          String email,
-                         String addr,
+                         String addr,HttpServletRequest request,
                          HttpServletResponse response) throws IOException {
         User user = new User();
         user.setUsername(username);
-        user.setPhone(phone);
         user.setPassword(password);
         user.setName(name);
-        user.setEmail(email);
-        user.setAddr(addr);
         userService.create(user);
-        // 注册完成后重定向到登录页面
-        response.sendRedirect("/mall/user/toLogin.html");
+//        request.getSession().setAttribute("user", user);
+        // 设置密码
+        response.sendRedirect("/mall/user/login.html");
     }
+    
+
 
     /**
      * 登出
@@ -119,5 +119,35 @@ public class UserController {
     @RequestMapping("/error.html")
     public String error(HttpServletResponse response, HttpServletRequest request) {
         return "error";
+    }
+    
+    
+    /**
+     * 给用户邮箱发送验证码
+     * @param username
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/sendValidateCode.do")
+    public ResultBean<Boolean> sendValidateCode( HttpServletRequest request){
+    	String str = String.valueOf(System.currentTimeMillis());
+    	String validateCode = str.substring(str.length()-6, str.length());
+    	request.getSession().setAttribute("regist_validateCode",validateCode);
+        return new ResultBean<>(validateCode);
+    }
+    
+    /**
+     * 给用户邮箱发送验证码
+     * @param username
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping("/checkValidateCode.do")
+    public ResultBean<Boolean> checkValidateCode(String validateCode,  HttpServletRequest request){
+    	String svalidateCode = (String)request.getSession().getAttribute("regist_validateCode"); 
+    	 if (svalidateCode.equals(validateCode)){
+             return new ResultBean<>(true);
+         }
+         return new ResultBean<>(false);
     }
 }

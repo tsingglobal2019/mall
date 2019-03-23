@@ -32,84 +32,68 @@
                 <legend>欢迎注册</legend>
                 <div class="layui-field-box">
                     <form class="layui-form" action="register.do">
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">用户名：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="username" required="required" onblur="checkUsername()"
-                                       lay-verify="required" placeholder="请输入用户名"
-                                       autocomplete="off" class="layui-input"/>
-                            </div>
+                       <div id="regist_step1">
+	                        <div class="layui-form-item">
+	                            <label class="layui-form-label">用户名：</label>
+	                            <div class="layui-input-block">
+	                                <input type="text" name="username" id="username"  onblur="checkUsername()"
+	                                       lay-verify="required" placeholder="邮箱"
+	                                       autocomplete="off" class="layui-input"/>
+	                            </div>
+	                        </div>
+	                         <div class="layui-form-item">
+	                            <label class="layui-form-label">名称：</label>
+	                            <div class="layui-input-block">
+	                                <input type="text" name="name" id="name" 
+	                                       lay-verify="required" placeholder="名称/公司名称"
+	                                       autocomplete="off" class="layui-input"/>
+	                            </div>
+	                        </div>
+	
+	                        <div class="layui-form-item">
+	                            <label class="layui-form-label">验证码：</label>
+	                            <div class="layui-input-block">
+	                                <input style="width: 65%;float: left" type="text" maxlength="6" id="validateCode" placeholder="请输入验证码"  onkeyup="checkValidateCode()"
+	                                       autocomplete="off" class="layui-input"/>
+	                                <input type="button" style="width: 35%;float: left" class="layui-bg-blue layui-btn layui-btn-lg layui-btn-danger"
+	                                  onclick="sendValidateCode(this)"  title='获取验证码' readonly="readonly" value="获取验证码"/>
+	                            </div>
+	                        </div>
+	
+	
+	                        <div class="layui-form-item">
+	                            <div class="layui-input-block" style="text-align: center;">
+	                               <input type="button"  style="width: 100%;float: left" onclick = "toStep2()" class="layui-bg-blue layui-btn layui-btn-lg layui-btn-danger"
+	                                        value="下一步" >
+	                                </input>
+	                            </div>
+	                        </div>
                         </div>
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">密码：</label>
-                            <div class="layui-input-block">
-                                <input type="password" name="password" required="required" lay-verify="required"
-                                       placeholder="请输入密码"
-                                       autocomplete="off" class="layui-input"/>
-                            </div>
-                        </div>
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">姓名：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="name" required="required" lay-verify="required"
-                                       placeholder="请输您的姓名"
-                                       autocomplete="off" class="layui-input"/>
-                            </div>
-                        </div>
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">电话：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="phone" required="required" lay-verify="required|phone"
-                                       placeholder="请输您的联系电话"
-                                       autocomplete="off" class="layui-input"/>
-                            </div>
-                        </div>
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">邮箱：</label>
-                            <div class="layui-input-block">
-                                <input type="text" name="email" required="required" lay-verify="required|email"
-                                       placeholder="请输您的邮箱地址"
-                                       autocomplete="off" class="layui-input"/>
-                            </div>
-                        </div>
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">详细地址：</label>
-                            <div class="layui-input-block">
-                                <textarea name="addr" placeholder="请输入您的地址" class="layui-textarea"></textarea></div>
-                        </div>
-
-                        <div class="layui-form-item">
-                            <label class="layui-form-label">验证码：</label>
-                            <div class="layui-input-block">
-                                <input style="width: 350px;float: left" type="text" id="input" placeholder="请输入验证码"
-                                       autocomplete="off" class="layui-input"/>
-                                <input type="button" id="code" onclick="createCode()" title='点击更换验证码' readonly="readonly" value="xxxx"/>
-                            </div>
-                        </div>
-
-                        <div style="padding-left: 225px">
-                            <p style="font-size:30px;color:white;padding-left: 41px">
-                                扫码注册
-                            </p>
-                            <a href="/mall/user/toRegister.html">
-                                <img style="height:200px;width:200px;" th:src="@{/image/17.png}"/>
-                            </a>
-                        </div>
-
-                        <div class="layui-form-item">
-                            <div class="layui-input-block" style="text-align: center;">
-                                <button id="commit" onclick = "validate()" class="layui-bg-blue layui-btn layui-btn-lg layui-btn-radius layui-btn-danger"
-                                        lay-submit="lay-submit" lay-filter="formReg">注册
-                                </button>
-                                <button type="reset" class="layui-btn layui-btn-lg layui-btn-radius layui-btn-primary">
-                                    重置
-                                </button>
-                            </div>
+                      <div id="regist_step2" style="display:none">  
+	                        <div class="layui-form-item">
+	                            <label class="layui-form-label">密码：</label>
+	                            <div class="layui-input-block">
+	                                <input type="password" name="password" id="password"
+	                                       placeholder="请输入密码"
+	                                       autocomplete="off" class="layui-input"/>
+	                            </div>
+	                        </div> <div class="layui-form-item">
+	                            <label class="layui-form-label">重新输入：</label>
+	                            <div class="layui-input-block">
+	                                <input type="password" id="repassword"  
+	                                       placeholder="重新输入密码"
+	                                       autocomplete="off" class="layui-input"/>
+	                            </div>
+	                        </div>
+	                        
+	                        <div class="layui-form-item">
+	                            <div class="layui-input-block" style="text-align: center;">
+	                                <input type="button"  style="width: 100%;float: left" onclick = "validatePassword()" class="layui-bg-blue layui-btn layui-btn-lg layui-btn-danger"
+	                                        value="下一步" >
+	                                </input>
+	
+	                            </div>
+	                        </div>
                         </div>
                     </form>
                 </div>
@@ -118,7 +102,62 @@
 
     </div>
     <script>
-        //        <![CDATA[
+    //        <![CDATA[
+    	
+    	function validatePassword(){
+    		var password = $("#password").val();
+    		var repassword = $("#repassword").val();
+    		if(password =="" || repassword ==""){
+    			layer.msg("请输入密码");
+    			return false ;
+    		}
+    		if(password != repassword){
+    			layer.msg("两次输入密码不一致，请重新输入");
+    			return false;
+    		}
+    		document.forms[0].submit();
+
+    	}
+    function sendValidateCode(obj){
+    	if(!checkUsername()){
+    		return false;
+    	}
+    	var username = $("#username").val();
+    	 $.get("sendValidateCode.do?username=" + username, function (data) {
+             $(obj).val("重新获取"+data.message);
+         });
+    }
+    function checkValidateCode(){
+    	var validateCode = $("#validateCode").val();
+    	if(validateCode =="" || validateCode.length < 6){
+    		return ;
+    	}
+    	 $.get("checkValidateCode.do?validateCode=" + validateCode, function (data) {
+    		 if (!data.data) {
+    			 layer.msg("验证码输入错误!请重新输入"); //则弹出验证码输入错误
+    		 }
+         });
+    }
+    
+    function checkVCode(){
+    	var validateCode = $("#validateCode").val();
+    	if(validateCode =="" ){
+    		layer.msg("请输入验证码");
+    		return false;
+    	}
+    	if(validateCode.length < 6){
+    		 layer.msg("验证码输入错误!请重新输入");
+    		return false;
+    	}
+    	 $.get("checkValidateCode.do?validateCode=" + validateCode, function (data) {
+    		 if (!data.data) {
+    			 layer.msg("验证码输入错误!请重新输入"); //则弹出验证码输入错误
+    			 return false;
+    		 }
+         });
+    	 return true;
+    }
+       
         // 加载layui form模块
         layui.use('form', function () {
             var form = layui.form;
@@ -127,14 +166,42 @@
         // ajax异步校验用户名是否唯一
         function checkUsername() {
             var username = $("input[name='username']").val();
-            $.get("checkUsername.do?username=" + username, function (data) {
+            if(username ==""){
+            	layer.msg("请输入用户名");
+                return false;
+            }
+            if(!checkUsernameFormat(username)){
+            	return false;
+            }
+            $.get("checkUsername.do?username="+username, function (data) {
                 if (!data.data) {
                     layer.msg("用户已存在！");
-                    $("#commit").addClass("layui-btn-disabled");
-                } else {
-                    $("#commit").removeClass("layui-btn-disabled");
+                    return false;
                 }
             });
+            return true;
+        }
+        
+        function checkUsernameFormat(str){
+            var re = /^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/; 
+            if (!re.test(str)) {
+            	layer.msg("用户名格式不正确！");
+				return false;
+            }
+            return true;
+          }
+        
+      //校验验证码
+        function toStep2(){
+            if(!checkUsername()){
+            	return false ;
+            }
+            if(!checkVCode()){
+            	return false;
+            }
+            $("#regist_step1").css("display","none");
+            $("#regist_step2").css("display","");
+
         }
 
         // 移动设备显示优化
@@ -147,6 +214,6 @@
     </script>
 </div>
 <!--底部-->
-<div th:replace="mall/common::foot"></div>
+<!-- <div th:replace="mall/common::foot"></div> -->
 </body>
 </html>
