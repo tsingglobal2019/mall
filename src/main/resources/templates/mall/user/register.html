@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
@@ -17,66 +17,62 @@
     
     <script th:src="@{/local js/index.js}" type="text/javascript"></script>
     <style>
+    body{
+    	background-color:#fff;
+    }
     </style>
     <script type='text/javascript'>
         </script>
 </head>
-<body >
-
-
-
+<body>
     <!-- widget progress-bar begin -->
-
- 
-
-
 <!--头部模块-->
 <div th:replace="mall/common::head"></div>
-<div class="layui-container" id="content">
-    <div class="layui-row">
-        <div style="position: absolute; left: 0; right: 0; z-index: -1">
-
-        </div>
+<div class="" id="content1">
         <div id="cont" class="layui-col-xs12 layui-col-sm12 layui-col-md12 smaller">
-            <fieldset class="layui-elem-field layui-field-title">
-                <legend>欢迎注册</legend>
-                <div class="layui-field-box">
-                    <form class="layui-form" action="register.do">
-                    
-                         <div class="progress-bar clearfix">
+             <form class="layui-form" action="register.do">
+                    <table border="0" style="width: 100%">
+                    	<tr><td>
+                   		<div class="progress-bar clearfix" sytle="margin:0 auto">
 					        <div class="pro-step cur-step ">
 					            <span class="step-index">1</span>
-					            <p class="step-desc">验证手机号</p>
+					            <p class="step-desc">设置账户和名称</p>
 					        </div>
-					        <div class="pro-line pro-line1 person-pro-line person-pro-line1 "></div>
-					        <div class="pro-step pro-step2 person-pro-step2  ">
+					        <div class="pro-line pro-line1 person-pro-line person-pro-line1 " id="linediv12"></div>
+					        
+					        <div class="pro-step pro-step2 person-pro-step2  " id="stepdiv2">
 					            <span class="step-index">2</span>
-					            <p class="step-desc">填写账号信息</p>
+					            <p class="step-desc">验证账号信息</p>
 					        </div>
-					        <div class="pro-line pro-line2 person-pro-line person-pro-line2 "></div>
-					        <div class="pro-step pro-step3 person-pro-step3  ">
+					        
+					        <div class="pro-line pro-line2 person-pro-line person-pro-line2 " id="linediv23"></div>
+					        
+					        <div class="pro-step pro-step3 person-pro-step3 " id="stepdiv3">
 					            <span class="step-index">3</span>
 					            <p class="step-desc">注册成功</p>
 					        </div>
-					    </div> 
-                       <div id="step1-wrap">
-                       
-                       
+						</div> 
+					    </td>
+					    </tr>
+						<tr><td>
+                <div class="layui-field-box" style="width: 400px;margin:0 auto">
+                       <div id="regist_step1" style="display:display">
+		             		<div class="input-tip">
+		                        <span></span>
+		                    </div>
 		             		<div class="form-item" >
-		                        <label>账　户　名</label>
-		                        <input type="text"  name="loginName" id="loginName"  class="field" autocomplete="off" maxlength="20" placeholder="建议使用常用邮箱" />
-		                        <i class="i-status"></i>
-		                        <i class="i-cancel"></i>
+		                        <label>账&nbsp;户&nbsp;名</label>
+		                        <input type="text"  name="loginName" id="loginName"  class="field" autocomplete="off" maxlength="25" placeholder="建议使用常用邮箱" />
+		                        
 		                    </div>
 		                    <div class="input-tip">
 		                        <span></span>
 		                    </div>
 		                    
 		                    <div class="form-item" >
-		                        <label>名　　  称</label>
-		                        <input type="text"  name="name" id="name" class="field" autocomplete="off" maxlength="20" placeholder="名称/单位名称" />
-		                        <i class="i-status"></i>
-		                        <i class="i-cancel"></i>
+		                        <label>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</label>
+		                        <input type="text"  name="name" id="name" class="field" autocomplete="off" maxlength="25" placeholder="名称/单位名称" />
+		                        
 		                    </div>
 		                    <div class="input-tip">
 		                        <span></span>
@@ -86,61 +82,62 @@
                         </div>
                         
                          <div id="regist_step2" style="display:none">
-	                        <div class="layui-form-item">
-	                            <label class="layui-form-label">验证码：</label>
-	                            <div class="layui-input-block">
-	                                <input style="width: 65%;float: left" type="text" maxlength="6" id="validateCode" placeholder="请输入验证码"  onkeyup="checkValidateCode()"
-	                                       autocomplete="off" class="layui-input"/>
-	                                <input type="button" style="width: 35%;float: left" class="layui-bg-blue layui-btn layui-btn-lg layui-btn-danger"
-	                                  onclick="sendValidateCode(this)"  title='获取验证码' readonly="readonly" value="获取验证码"/>
-	                            </div>
+	                       <div class="input-tip">
+		                        <span></span>
+		                    </div>
+	                        <div class="form-item" >
+	                            <label>邮箱验证码</label>
+	                            <input type="text" maxlength="4" id="validateCode" placeholder="请输入邮箱验证码"  onkeyup="checkValidateCode()"
+	                                   autocomplete="off" class="field" style="width:120px;"/>
+	                            <label style="cursor:pointer;float:right" onclick="sendValidateCode();">获取验证码</label>
+	                            <!-- input type="button" style="width: 35%;float: left" class="layui-bg-blue layui-btn layui-btn-lg layui-btn-danger"
+	                                   onclick="sendValidateCode(this)"  title='获取验证码' readonly="readonly" value="获取验证码"/-->
 	                        </div>
 	
-	
-	                        <div class="layui-form-item">
-	                            <div class="layui-input-block" style="text-align: center;">
-	                               <input type="button"  style="width: 100%;float: left" onclick = "toStep3()" class="layui-bg-blue layui-btn layui-btn-lg layui-btn-danger"
-	                                        value="下一步" >
-	                                </input>
-	                            </div>
-	                        </div>
+	                        <div class="input-tip">
+		                        <span></span>
+		                    </div>
+	                        <div id="step2-next" class="btn-register" onclick="toStep3()" >下一步</div>
                         </div>
                         
-                        
-                        
-                        
                       <div id="regist_step3" style="display:none">  
-	                        <div class="layui-form-item">
-	                            <label class="layui-form-label">设置密码：</label>
-	                            <div class="layui-input-block">
+	                        <div class="input-tip">
+		                        <span></span>
+		                    </div>
+	                        <div class="form-item">
+	                            <label>设置密码</label>
 	                                <input type="password" name="password" id="password"
 	                                       placeholder="请输入密码"
-	                                       autocomplete="off" class="layui-input"/>
-	                            </div>
-	                        </div> <div class="layui-form-item">
-	                            <label class="layui-form-label">确认密码：</label>
-	                            <div class="layui-input-block">
+	                                       autocomplete="off" class="field"/>
+	                        </div> 
+	                        <div class="input-tip">
+		                        <span></span>
+		                    </div>
+	                        <div class="form-item">
+	                            <label>确认密码</label>
 	                                <input type="password" id="repassword"  
 	                                       placeholder="重新输入密码"
-	                                       autocomplete="off" class="layui-input"/>
-	                            </div>
+	                                       autocomplete="off" class="field"/>
 	                        </div>
-	                        
-	                        <div class="layui-form-item">
+	                        <div class="input-tip">
+		                        <span></span>
+		                    </div>
+		                    <div id="step3-next" class="btn-register" onclick="validatePassword()" >注册</div>
+	                        <!-- div class="layui-form-item">
 	                            <div class="layui-input-block" style="text-align: center;">
 	                                <input type="button"  style="width: 100%;float: left" onclick = "validatePassword()" class="layui-bg-blue layui-btn layui-btn-lg layui-btn-danger"
 	                                        value="下一步" >
 	                                </input>
 	
 	                            </div>
-	                        </div>
+	                        </div-->
                         </div>
-                    </form>
                 </div>
-            </fieldset>
+                </td></tr>
+                </table>
+             </form>
         </div>
 
-    </div>
     <script>
     //        <![CDATA[
     	
@@ -151,6 +148,8 @@
     		
     		  $("#regist_step2").css("display","none");
               $("#regist_step3").css("display","");
+              $("#stepdiv3").addClass("cur-step");
+              $("#linediv23").addClass("person-cur-line");
     	}
     	
     	function validatePassword(){
@@ -167,13 +166,13 @@
      		document.forms[0].submit();
 
     	}
-    function sendValidateCode(obj){
+    function sendValidateCode(){
     	if(!checkUsername()){
     		return false;
     	}
     	var username = $("#username").val();
     	 $.get("sendValidateCode.do?username=" + username, function (data) {
-             $(obj).val("重新获取"+data.message);
+             //$(obj).val("重新获取"+data.message);
          });
     }
     function checkValidateCode(){
@@ -249,6 +248,8 @@
             var name = $("input[name='name']").val();
             $("#regist_step1").css("display","none");
             $("#regist_step2").css("display","");
+            $("#stepdiv2").addClass("cur-step");//标绿
+            $("#linediv12").addClass("person-cur-line");
             
             $.get("register.do?username="+username+"&name="+name, function (data) {
                 if (!data.data) {
