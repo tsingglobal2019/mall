@@ -170,7 +170,7 @@
     	if(!checkUsername()){
     		return false;
     	}
-    	var username = $("#username").val();
+    	var username = $("#loginName").val();
     	 $.get("sendValidateCode.do?username=" + username, function (data) {
              //$(obj).val("重新获取"+data.message);
          });
@@ -213,7 +213,7 @@
 
         // ajax异步校验用户名是否唯一
         function checkUsername() {
-            var username = $("input[name='username']").val();
+            var username = $("input[name='loginName']").val();
             if(username ==""){
             	layer.msg("请输入用户名");
                 return false;
@@ -244,7 +244,7 @@
             if(!checkUsername()){
             	return false ;
             }
-            var username = $("input[name='username']").val();
+            var username = $("input[name='loginName']").val();
             var name = $("input[name='name']").val();
             $("#regist_step1").css("display","none");
             $("#regist_step2").css("display","");
