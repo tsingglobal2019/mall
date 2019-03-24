@@ -4,6 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.alibaba.fastjson.JSONObject;
+import com.tsingglobal.common.utils.RestTemplateUtils;
+
 import priv.jesse.mall.entity.User;
 import priv.jesse.mall.entity.pojo.ResultBean;
 import priv.jesse.mall.service.UserService;
@@ -19,6 +23,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    
+    private String contextPath = "http://10.45.55.137:8080";
 
     /**
      * 打开注册页面
@@ -64,23 +70,27 @@ public class UserController {
 
     /**
      * 注册
+     * @return 
      */
     @RequestMapping("/register.do")
-    public void register(String username,
-                         String password,
-                         String name,
-                         String phone,
-                         String email,
-                         String addr,HttpServletRequest request,
+    public ResultBean<Boolean> register(String username,
+                         String name,HttpServletRequest request,
                          HttpServletResponse response) throws IOException {
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password);
         user.setName(name);
-        userService.create(user);
-//        request.getSession().setAttribute("user", user);
+        JSONObject obj = new JSONObject();
+        obj.put("loginName", username);
+        obj.put("userName", name);
+        String vurl = contextPath+"/system/user/registerUser";
+        String result = RestTemplateUtils.getInstance().post(vurl, obj.toJSONString());
+        System.out.println("registerUser11  "+String.valueOf(result));
+        JSONObject jobj = JSONObject.parseObject(result);
+        boolean status = jobj.getBooleanValue("status");
+        ResultBean<Boolean> rb = new ResultBean<>(status);
+        rb.setMessage(jobj.getString("message"));
         // 设置密码
-        response.sendRedirect("/mall/user/login.html");
+        return rb;
     }
     
 
