@@ -500,6 +500,9 @@ body {
 	height: 52px;
 	z-index: 0
 }
+.form-item:hover {
+	border:#000000 solid 1px;
+}
 
 .form-item label {
 	float: left;
