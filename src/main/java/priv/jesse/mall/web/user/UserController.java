@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tsingglobal.common.utils.RestTemplateUtils;
 
@@ -24,7 +25,7 @@ public class UserController {
     @Autowired
     private UserService userService;
     
-    private String contextPath = "http://10.45.55.137:8080";
+    private String contextPath = "http://10.45.52.169:8080";
 
     /**
      * 打开注册页面
@@ -139,11 +140,26 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/sendValidateCode.do")
-    public ResultBean<Boolean> sendValidateCode( HttpServletRequest request){
-    	String str = String.valueOf(System.currentTimeMillis());
-    	String validateCode = str.substring(str.length()-6, str.length());
-    	request.getSession().setAttribute("regist_validateCode",validateCode);
-        return new ResultBean<>(validateCode);
+    public ResultBean<Boolean> sendValidateCode( String username,HttpServletRequest request){
+    	
+    	 JSONObject obj = new JSONObject();
+         obj.put("loginName", username);
+    	 String vurl = contextPath+"/system/user/generateRegisterCode";
+    	String registerResultJSON = RestTemplateUtils.getInstance().post(vurl,obj.toJSONString());
+    	obj = JSON.parseObject(registerResultJSON);
+    	
+    	if( "200".equals(obj.getString("state")) ) {
+    		
+    		request.getSession().setAttribute("regist_validateCode",obj.getString("data")); 
+    		
+    		return new ResultBean<>("获取验证码成功！");
+    		
+    	}else{
+    		
+    		//获取验证码失败！
+    		return new ResultBean<>("获取验证码失败！"+obj.getString("message"));
+    	}
+        
     }
     
     /**
